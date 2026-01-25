@@ -8,6 +8,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![LibreOJ](https://img.shields.io/badge/LibreOJ-loj.ac-green.svg)](https://loj.ac)
+[![Language](https://img.shields.io/badge/Language-C-lightgrey.svg)](https://en.wikipedia.org/wiki/C_(programming_language))
 [![Language](https://img.shields.io/badge/Language-C++-orange.svg)](https://isocpp.org/)
 [![Language](https://img.shields.io/badge/Language-Python-yellow.svg)](https://python.org/)
 
@@ -17,7 +18,7 @@
 
 ## 📖 简介
 
-**Vibe LibreOJ** 是一个基于 AI Agent 的自动化工作流项目，能够自动抓取 [LibreOJ](https://loj.ac) 上的题目信息，并智能生成 C++ 和 Python 解答代码。
+**Vibe LibreOJ** 是一个基于 AI Agent 的自动化工作流项目，能够自动抓取 [LibreOJ](https://loj.ac) 上的题目信息，并智能生成 C、C++ 和 Python 解答代码。
 
 该项目利用 Chrome DevTools MCP 协议读取题面，自动整理为规范的 Markdown 格式，并根据题目要求生成可通过的多语言解法。
 
@@ -26,7 +27,7 @@
 - 🔗 **灵活的输入解析** — 支持多种输入格式：`loj1`、`loj001`、`https://loj.ac/p/1` 等
 - 📄 **自动题面抓取** — 通过 Chrome DevTools MCP 自动读取并保存题目内容
 - 📝 **Markdown 格式化** — 题目信息自动整理为结构化的 Markdown 文件
-- 💻 **多语言代码生成** — AI 分析题意并生成 C++11 和 Python 3 的解答代码
+- 💻 **多语言代码生成** — AI 分析题意并生成 C11、C++11 和 Python 3 的解答代码
 - 📁 **规范目录结构** — 每道题目独立目录，便于管理和查阅
 
 ## 🚀 快速开始
@@ -50,6 +51,7 @@ http://loj.ac/p/123
 ```
 <题号>/
 ├── problem.md     # 题面描述（Markdown 格式）
+├── solution.c     # 解答代码（C11）
 ├── solution.cpp   # 解答代码（C++11）
 └── solution.py    # 解答代码（Python 3）
 ```
@@ -65,6 +67,7 @@ Vibe LibreOJ/
 │   └── SKILL.md        # AI 工作流技能定义
 └── <题号>/             # 题目解答目录
     ├── problem.md      # 题面
+    ├── solution.c      # C 解答
     ├── solution.cpp    # C++ 解答
     └── solution.py     # Python 解答
 ```
@@ -75,7 +78,7 @@ Vibe LibreOJ/
 2. **创建目录** — 在工作区根目录创建以题号命名的文件夹
 3. **抓取题面** — 使用 Chrome DevTools MCP 访问题目页面，获取题目内容
 4. **保存题面** — 将题目信息格式化为 Markdown 并保存为 `problem.md`
-5. **生成解答** — AI 分析题目，分别编写 C++ 和 Python 解答代码
+5. **生成解答** — AI 分析题目，分别编写 C、C++ 和 Python 解答代码
 
 ## 💡 示例
 
@@ -94,6 +97,20 @@ Vibe LibreOJ/
 
 ## 输出格式
 一行一个正整数 a + b。
+```
+
+**solution.c**
+```c
+// 思路：读取两个整数，输出它们的和。
+// 复杂度：时间 O(1)，空间 O(1)。
+#include <stdio.h>
+
+int main(void) {
+    long long a, b;
+    if (scanf("%lld %lld", &a, &b) != 2) return 0;
+    printf("%lld", a + b);
+    return 0;
+}
 ```
 
 **solution.cpp**
@@ -127,6 +144,7 @@ print(a + b)
 
 - **AI Agent** — 智能工作流控制
 - **Chrome DevTools MCP** — 网页内容抓取
+- **C11** — 解答代码标准
 - **C++11** — 解答代码标准
 - **Python 3** — 解答代码标准
 - **Markdown** — 题目格式化
