@@ -11,6 +11,7 @@
 [![Language](https://img.shields.io/badge/Language-C-lightgrey.svg)](https://en.wikipedia.org/wiki/C_(programming_language))
 [![Language](https://img.shields.io/badge/Language-C++-orange.svg)](https://isocpp.org/)
 [![Language](https://img.shields.io/badge/Language-Python-yellow.svg)](https://python.org/)
+[![Language](https://img.shields.io/badge/Language-Java-red.svg)](https://www.java.com/)
 
 </div>
 
@@ -18,7 +19,7 @@
 
 ## 📖 Introduction
 
-**Vibe LibreOJ** is an automated workflow project based on AI Agents, capable of automatically scraping problem information from [LibreOJ](https://loj.ac) and intelligently generating C, C++ and Python solution code.
+**Vibe LibreOJ** is an automated workflow project based on AI Agents, capable of automatically scraping problem information from [LibreOJ](https://loj.ac) and intelligently generating C, C++, Python and Java solution code.
 
 This project utilizes the Chrome DevTools MCP protocol to read problem statements, automatically organizing them into standard Markdown format, and generating passable multi-language solutions based on the problem requirements.
 
@@ -27,7 +28,7 @@ This project utilizes the Chrome DevTools MCP protocol to read problem statement
 - 🔗 **Flexible Input Parsing** — Supports various input formats: `loj1`, `loj001`, `https://loj.ac/p/1`, etc.
 - 📄 **Automatic Problem Scraping** — Automatically reads and saves problem content via Chrome DevTools MCP.
 - 📝 **Markdown Formatting** — Problem information is automatically organized into structured Markdown files.
-- 💻 **Multi-language Code Generation** — AI analyzes the problem and generates C11, C++11 and Python 3 solution code.
+- 💻 **Multi-language Code Generation** — AI analyzes the problem and generates C11, C++11, Python 3 and Java 8 solution code.
 - 📁 **Standardized Directory Structure** — Each problem has its own independent directory for easy management and reference.
 
 ## 🚀 Quick Start
@@ -53,7 +54,8 @@ Each problem will have the following files generated in an independent folder:
 ├── problem.md     # Problem statement description (Markdown format)
 ├── solution.c     # Solution code (C11)
 ├── solution.cpp   # Solution code (C++11)
-└── solution.py    # Solution code (Python 3)
+├── solution.py    # Solution code (Python 3)
+└── solution.java  # Solution code (Java 8)
 ```
 
 ## 📂 Project Structure
@@ -69,7 +71,8 @@ Vibe LibreOJ/
     ├── problem.md      # Problem statement
     ├── solution.c      # C solution
     ├── solution.cpp    # C++ solution
-    └── solution.py     # Python solution
+    ├── solution.py     # Python solution
+    └── solution.java   # Java solution
 ```
 
 ## 📋 Workflow
@@ -78,7 +81,7 @@ Vibe LibreOJ/
 2. **Create Directory** — Create a folder named after the problem number in the workspace root.
 3. **Scrape Problem** — Visit the problem page using Chrome DevTools MCP to capture problem content.
 4. **Save Problem** — Format problem information into Markdown and save as `problem.md`.
-5. **Generate Solution** — AI analyzes the problem and writes C, C++ and Python solution code respectively.
+5. **Generate Solution** — AI analyzes the problem and writes C, C++, Python and Java solution code respectively.
 
 ## 💡 Example
 
@@ -140,6 +143,22 @@ a, b = map(int, input().split())
 print(a + b)
 ```
 
+**solution.java**
+```java
+// Logic: Read two integers a and b, output a + b.
+// Complexity: Time O(1), Space O(1).
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long a = sc.nextLong();
+        long b = sc.nextLong();
+        System.out.print(a + b);
+    }
+}
+```
+
 ## 🛠️ Tech Stack
 
 - **AI Agent** — Intelligent workflow control
@@ -147,6 +166,7 @@ print(a + b)
 - **C11** — Solution code standard
 - **C++11** — Solution code standard
 - **Python 3** — Solution code standard
+- **Java 8** — Solution code standard
 - **Markdown** — Problem formatting
 
 ## 📄 License
