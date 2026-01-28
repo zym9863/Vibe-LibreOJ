@@ -1,5 +1,6 @@
-// 思路：读取两个整数 a, b，输出 a + b。
-// 复杂度：时间 O(1)，空间 O(1)。
+// 思路：直接读取两个整数相加输出。
+// 复杂度：时间 O(1)，空间 O(1)
+
 #include <stdio.h>
 
 int main(void) {
@@ -7,6 +8,6 @@ int main(void) {
     if (scanf("%lld %lld", &a, &b) != 2) {
         return 0;
     }
-    printf("%lld", a + b);
+    printf("%lld\n", a + b);
     return 0;
 }

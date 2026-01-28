@@ -1,16 +1,13 @@
-// 思路：读取两个整数 a, b，输出 a + b。
-// 复杂度：时间 O(1)，空间 O(1)。
-#include <bits/stdc++.h>
-using namespace std;
+// 思路：直接读取两个整数相加输出。
+// 复杂度：时间 O(1)，空间 O(1)
+
+#include <iostream>
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
     long long a, b;
-    if (!(cin >> a >> b)) {
+    if (!(std::cin >> a >> b)) {
         return 0;
     }
-    cout << (a + b);
+    std::cout << (a + b) << "\n";
     return 0;
 }
