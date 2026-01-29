@@ -13,6 +13,7 @@
 [![Language](https://img.shields.io/badge/Language-Python-yellow.svg)](https://python.org/)
 [![Language](https://img.shields.io/badge/Language-Java-red.svg)](https://www.java.com/)
 [![Language](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org/)
+[![Language](https://img.shields.io/badge/Language-Pascal-teal.svg)](https://www.freepascal.org/)
 
 </div>
 
@@ -20,7 +21,7 @@
 
 ## 📖 简介
 
-**Vibe LibreOJ** 是一个基于 AI Agent 的自动化工作流项目，能够自动抓取 [LibreOJ](https://loj.ac) 上的题目信息，并智能生成 C、C++、Python、Java 和 Kotlin 解答代码。
+**Vibe LibreOJ** 是一个基于 AI Agent 的自动化工作流项目，能够自动抓取 [LibreOJ](https://loj.ac) 上的题目信息，并智能生成 C、C++、Python、Java、Kotlin 和 Pascal 解答代码。
 
 该项目利用 Chrome DevTools MCP 协议读取题面，自动整理为规范的 Markdown 格式，并根据题目要求生成可通过的多语言解法。
 
@@ -29,7 +30,7 @@
 - 🔗 **灵活的输入解析** — 支持多种输入格式：`loj1`、`loj001`、`https://loj.ac/p/1` 等
 - 📄 **自动题面抓取** — 通过 Chrome DevTools MCP 自动读取并保存题目内容
 - 📝 **Markdown 格式化** — 题目信息自动整理为结构化的 Markdown 文件
-- 💻 **多语言代码生成** — AI 分析题意并生成 C11、C++11、Python 3、Java 8 和 Kotlin 1.8 的解答代码
+- 💻 **多语言代码生成** — AI 分析题意并生成 C11、C++11、Python 3、Java 8、Kotlin 1.8 和 Pascal 的解答代码
 - 📁 **规范目录结构** — 每道题目独立目录，便于管理和查阅
 
 ## 🚀 快速开始
@@ -57,7 +58,8 @@ http://loj.ac/p/123
 ├── solution.cpp   # 解答代码（C++11）
 ├── solution.py    # 解答代码（Python 3）
 ├── solution.java  # 解答代码（Java 8）
-└── solution.kt    # 解答代码（Kotlin 1.8）
+├── solution.kt    # 解答代码（Kotlin 1.8）
+└── solution.pas   # 解答代码（Pascal）
 ```
 
 ## 📂 项目结构
@@ -75,7 +77,8 @@ Vibe LibreOJ/
     ├── solution.cpp    # C++ 解答
     ├── solution.py     # Python 解答
     ├── solution.java   # Java 解答
-    └── solution.kt     # Kotlin 解答
+    ├── solution.kt     # Kotlin 解答
+    └── solution.pas    # Pascal 解答
 ```
 
 ## 📋 工作流程
@@ -84,7 +87,7 @@ Vibe LibreOJ/
 2. **创建目录** — 在工作区根目录创建以题号命名的文件夹
 3. **抓取题面** — 使用 Chrome DevTools MCP 访问题目页面，获取题目内容
 4. **保存题面** — 将题目信息格式化为 Markdown 并保存为 `problem.md`
-5. **生成解答** — AI 分析题目，分别编写 C、C++、Python、Java 和 Kotlin 解答代码
+5. **生成解答** — AI 分析题目，分别编写 C、C++、Python、Java、Kotlin 和 Pascal 解答代码
 
 ## 💡 示例
 
@@ -173,6 +176,23 @@ fun main() {
 }
 ```
 
+**solution.pas**
+```pascal
+{ 思路：直接读入两个整数并输出它们的和。 }
+{ 复杂度：时间 O(1)，空间 O(1)。 }
+program Main;
+
+var
+  a, b: Int64;
+begin
+  if not EOF(Input) then
+  begin
+    Read(a, b);
+    Write(a + b);
+  end;
+end.
+```
+
 ## 🛠️ 技术栈
 
 - **AI Agent** — 智能工作流控制
@@ -182,6 +202,7 @@ fun main() {
 - **Python 3** — 解答代码标准
 - **Java 8** — 解答代码标准
 - **Kotlin 1.8** — 解答代码标准
+- **Free Pascal 3.2** — 解答代码标准
 - **Markdown** — 题目格式化
 
 ## 📄 许可证
