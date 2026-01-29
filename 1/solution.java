@@ -1,39 +1,52 @@
-// 思路：直接读取两个整数相加输出。
-// 复杂度：时间 O(1)，空间 O(1)
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
+// 思路：直接读入两个整数并输出它们的和。
+// 复杂度：时间 O(1)，空间 O(1)。
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    private static int read() throws IOException {
-        return System.in.read();
+    public static void main(String[] args) throws Exception {
+        FastScanner fs = new FastScanner(System.in);
+        Long a = fs.nextLong();
+        Long b = fs.nextLong();
+        if (a == null || b == null) return;
+        System.out.print(a + b);
     }
 
-    public static void main(String[] args) throws Exception {
-        BufferedInputStream in = new BufferedInputStream(System.in);
-        long a = 0, b = 0;
-        int c;
-        boolean neg = false;
+    private static class FastScanner {
+        private final InputStream in;
+        private final byte[] buffer = new byte[1 << 16];
+        private int ptr = 0, len = 0;
 
-        // 读取 a
-        while ((c = in.read()) != -1 && c <= ' ') {}
-        if (c == '-') { neg = true; c = in.read(); }
-        while (c > ' ') {
-            a = a * 10 + (c - '0');
-            c = in.read();
+        FastScanner(InputStream in) {
+            this.in = in;
         }
-        if (neg) a = -a;
 
-        // 读取 b
-        neg = false;
-        while ((c = in.read()) != -1 && c <= ' ') {}
-        if (c == '-') { neg = true; c = in.read(); }
-        while (c > ' ') {
-            b = b * 10 + (c - '0');
-            c = in.read();
+        private int read() throws IOException {
+            if (ptr >= len) {
+                len = in.read(buffer);
+                ptr = 0;
+                if (len <= 0) return -1;
+            }
+            return buffer[ptr++];
         }
-        if (neg) b = -b;
 
-        System.out.print(a + b);
+        Long nextLong() throws IOException {
+            int c;
+            do {
+                c = read();
+                if (c == -1) return null;
+            } while (c <= ' ');
+            int sign = 1;
+            if (c == '-') {
+                sign = -1;
+                c = read();
+            }
+            long val = 0;
+            while (c > ' ') {
+                val = val * 10 + (c - '0');
+                c = read();
+            }
+            return val * sign;
+        }
     }
 }

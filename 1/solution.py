@@ -1,7 +1,7 @@
-# 思路：直接读取两个整数相加输出。
-# 复杂度：时间 O(1)，空间 O(1)
-
+# 思路：直接读入两个整数并输出它们的和。
+# 复杂度：时间 O(1)，空间 O(1)。
 import sys
+
 
 def main() -> None:
     data = sys.stdin.read().strip().split()
@@ -9,6 +9,7 @@ def main() -> None:
         return
     a, b = map(int, data[:2])
     sys.stdout.write(str(a + b))
+
 
 if __name__ == "__main__":
     main()
