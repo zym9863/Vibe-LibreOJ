@@ -1,42 +1,28 @@
-// 思路：直接读入两个整数并输出它们的和。
+// 思路：直接读取两个整数并输出其和。
 // 复杂度：时间 O(1)，空间 O(1)。
-import java.io.*;
-import java.util.*;
+import java.io.BufferedInputStream;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        FastScanner fs = new FastScanner(System.in);
-        Long a = fs.nextLong();
-        Long b = fs.nextLong();
-        if (a == null || b == null) return;
-        System.out.print(a + b);
-    }
-
     private static class FastScanner {
-        private final InputStream in;
         private final byte[] buffer = new byte[1 << 16];
         private int ptr = 0, len = 0;
 
-        FastScanner(InputStream in) {
-            this.in = in;
-        }
-
         private int read() throws IOException {
             if (ptr >= len) {
-                len = in.read(buffer);
+                len = System.in.read(buffer);
                 ptr = 0;
                 if (len <= 0) return -1;
             }
             return buffer[ptr++];
         }
 
-        Long nextLong() throws IOException {
+        long nextLong() throws IOException {
             int c;
             do {
                 c = read();
-                if (c == -1) return null;
-            } while (c <= ' ');
-            int sign = 1;
+            } while (c <= ' ' && c != -1);
+            long sign = 1;
             if (c == '-') {
                 sign = -1;
                 c = read();
@@ -48,5 +34,14 @@ public class Main {
             }
             return val * sign;
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        System.setIn(new BufferedInputStream(System.in));
+        FastScanner fs = new FastScanner();
+        long a = fs.nextLong();
+        long b = fs.nextLong();
+        long sum = a + b;
+        System.out.print(sum);
     }
 }

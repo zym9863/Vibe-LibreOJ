@@ -1,4 +1,4 @@
-// 思路：直接读入两个整数并输出它们的和。
+// 思路：直接读取两个整数并输出其和。
 // 复杂度：时间 O(1)，空间 O(1)。
 #include <bits/stdc++.h>
 using namespace std;
@@ -8,7 +8,8 @@ int main() {
     cin.tie(nullptr);
 
     long long a, b;
-    if (!(cin >> a >> b)) return 0;
-    cout << a + b;
+    if (cin >> a >> b) {
+        cout << a + b;
+    }
     return 0;
 }

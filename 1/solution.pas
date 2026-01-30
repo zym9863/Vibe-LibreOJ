@@ -1,13 +1,12 @@
-{ 思路：直接读入两个整数并输出它们的和。 }
-{ 复杂度：时间 O(1)，空间 O(1)。 }
+{ 思路：直接读取两个整数并输出其和。
+  复杂度：时间 O(1)，空间 O(1)。 }
 program Main;
-
 var
-  a, b: Int64;
+  a, b: int64;
 begin
-  if not EOF(Input) then
+  if not EOF(input) then
   begin
-    Read(a, b);
-    Write(a + b);
+    read(a, b);
+    write(a + b);
   end;
 end.

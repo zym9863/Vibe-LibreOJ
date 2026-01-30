@@ -1,7 +1,6 @@
-// 思路：直接读入两个整数并输出它们的和。
+// 思路：直接读取两个整数并输出其和。
 // 复杂度：时间 O(1)，空间 O(1)。
 import java.io.BufferedInputStream
-import java.lang.StringBuilder
 
 private class FastScanner {
     private val input = BufferedInputStream(System.`in`)
@@ -18,12 +17,11 @@ private class FastScanner {
         return buffer[ptr++].toInt()
     }
 
-    fun nextLong(): Long? {
-        var c = readByte()
-        while (c <= 32) {
-            if (c == -1) return null
+    fun nextLong(): Long {
+        var c: Int
+        do {
             c = readByte()
-        }
+        } while (c <= 32 && c != -1)
         var sign = 1
         if (c == '-'.code) {
             sign = -1
@@ -40,7 +38,7 @@ private class FastScanner {
 
 fun main() {
     val fs = FastScanner()
-    val a = fs.nextLong() ?: return
-    val b = fs.nextLong() ?: return
+    val a = fs.nextLong()
+    val b = fs.nextLong()
     print(a + b)
 }
