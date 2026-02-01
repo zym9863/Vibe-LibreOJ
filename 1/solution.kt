@@ -1,5 +1,5 @@
-// 思路：直接读取两个整数并输出其和。
-// 复杂度：时间 O(1)，空间 O(1)。
+// 思路：直接读入 a 和 b，输出 a+b。
+// 复杂度：O(1)
 import java.io.BufferedInputStream
 
 private class FastScanner {
@@ -17,28 +17,29 @@ private class FastScanner {
         return buffer[ptr++].toInt()
     }
 
-    fun nextLong(): Long {
+    fun nextLong(): Long? {
         var c: Int
         do {
             c = readByte()
-        } while (c <= 32 && c != -1)
+            if (c == -1) return null
+        } while (c <= 32)
         var sign = 1
         if (c == '-'.code) {
             sign = -1
             c = readByte()
         }
-        var res = 0L
+        var valNum = 0L
         while (c > 32) {
-            res = res * 10 + (c - '0'.code)
+            valNum = valNum * 10 + (c - '0'.code)
             c = readByte()
         }
-        return res * sign
+        return valNum * sign
     }
 }
 
 fun main() {
     val fs = FastScanner()
-    val a = fs.nextLong()
-    val b = fs.nextLong()
+    val a = fs.nextLong() ?: return
+    val b = fs.nextLong() ?: return
     print(a + b)
 }
