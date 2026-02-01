@@ -15,6 +15,7 @@
 [![Language](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org/)
 [![Language](https://img.shields.io/badge/Language-Pascal-teal.svg)](https://www.freepascal.org/)
 [![Language](https://img.shields.io/badge/Language-Rust-brown.svg)](https://www.rust-lang.org/)
+[![Language](https://img.shields.io/badge/Language-Go-cyan.svg)](https://golang.org/)
 
 </div>
 
@@ -22,7 +23,7 @@
 
 ## 📖 Introduction
 
-**Vibe LibreOJ** is an automated workflow project based on AI Agents, capable of automatically scraping problem information from [LibreOJ](https://loj.ac) and intelligently generating C, C++, Python, Java, Kotlin, Pascal and Rust solution code.
+**Vibe LibreOJ** is an automated workflow project based on AI Agents, capable of automatically scraping problem information from [LibreOJ](https://loj.ac) and intelligently generating C, C++, Python, Java, Kotlin, Pascal, Rust and Go solution code.
 
 This project utilizes the Chrome DevTools MCP protocol to read problem statements, automatically organizing them into standard Markdown format, and generating passable multi-language solutions based on the problem requirements.
 
@@ -31,7 +32,7 @@ This project utilizes the Chrome DevTools MCP protocol to read problem statement
 - 🔗 **Flexible Input Parsing** — Supports various input formats: `loj1`, `loj001`, `https://loj.ac/p/1`, etc.
 - 📄 **Automatic Problem Scraping** — Automatically reads and saves problem content via Chrome DevTools MCP.
 - 📝 **Markdown Formatting** — Problem information is automatically organized into structured Markdown files.
-- 💻 **Multi-language Code Generation** — AI analyzes the problem and generates C11, C++11, Python 3, Java 8, Kotlin 1.8, Pascal and Rust solution code.
+- 💻 **Multi-language Code Generation** — AI analyzes the problem and generates C11, C++11, Python 3, Java 8, Kotlin 1.8, Pascal, Rust and Go solution code.
 - 📁 **Standardized Directory Structure** — Each problem has its own independent directory for easy management and reference.
 
 ## 🚀 Quick Start
@@ -61,7 +62,8 @@ Each problem will have the following files generated in an independent folder:
 ├── solution.java  # Solution code (Java 8)
 ├── solution.kt    # Solution code (Kotlin 1.8)
 ├── solution.pas   # Solution code (Pascal)
-└── solution.rs    # Solution code (Rust 2021)
+├── solution.rs    # Solution code (Rust 2021)
+└── solution.go    # Solution code (Go 1.x)
 ```
 
 ## 📂 Project Structure
@@ -81,7 +83,8 @@ Vibe LibreOJ/
     ├── solution.java   # Java solution
     ├── solution.kt     # Kotlin solution
     ├── solution.pas    # Pascal solution
-    └── solution.rs     # Rust solution
+    ├── solution.rs     # Rust solution
+    └── solution.go     # Go solution
 ```
 
 ## 📋 Workflow
@@ -90,7 +93,7 @@ Vibe LibreOJ/
 2. **Create Directory** — Create a folder named after the problem number in the workspace root.
 3. **Scrape Problem** — Visit the problem page using Chrome DevTools MCP to capture problem content.
 4. **Save Problem** — Format problem information into Markdown and save as `problem.md`.
-5. **Generate Solution** — AI analyzes the problem and writes C, C++, Python, Java, Kotlin, Pascal and Rust solution code respectively.
+5. **Generate Solution** — AI analyzes the problem and writes C, C++, Python, Java, Kotlin, Pascal, Rust and Go solution code respectively.
 
 ## 💡 Example
 
@@ -214,6 +217,30 @@ fn main() {
 }
 ```
 
+**solution.go**
+```go
+// Logic: Directly read a and b, output a+b.
+// Complexity: O(1)
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+func main() {
+	in := bufio.NewReader(os.Stdin)
+	var a, b int64
+	if _, err := fmt.Fscan(in, &a, &b); err != nil {
+		return
+	}
+	out := bufio.NewWriter(os.Stdout)
+	fmt.Fprintln(out, a+b)
+	out.Flush()
+}
+```
+
 ## 🛠️ Tech Stack
 
 - **AI Agent** — Intelligent workflow control
@@ -225,6 +252,7 @@ fn main() {
 - **Kotlin 1.8** — Solution code standard
 - **Free Pascal 3.2** — Solution code standard
 - **Rust 2021** — Solution code standard
+- **Go 1.x** — Solution code standard
 - **Markdown** — Problem formatting
 
 ## 📄 License
