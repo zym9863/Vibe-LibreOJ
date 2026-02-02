@@ -16,6 +16,7 @@
 [![Language](https://img.shields.io/badge/Language-Pascal-teal.svg)](https://www.freepascal.org/)
 [![Language](https://img.shields.io/badge/Language-Rust-brown.svg)](https://www.rust-lang.org/)
 [![Language](https://img.shields.io/badge/Language-Go-cyan.svg)](https://golang.org/)
+[![Language](https://img.shields.io/badge/Language-Haskell-5e5086.svg)](https://www.haskell.org/)
 
 </div>
 
@@ -23,7 +24,7 @@
 
 ## 📖 Introduction
 
-**Vibe LibreOJ** is an automated workflow project based on AI Agents, capable of automatically scraping problem information from [LibreOJ](https://loj.ac) and intelligently generating C, C++, Python, Java, Kotlin, Pascal, Rust and Go solution code.
+**Vibe LibreOJ** is an automated workflow project based on AI Agents, capable of automatically scraping problem information from [LibreOJ](https://loj.ac) and intelligently generating C, C++, Python, Java, Kotlin, Pascal, Rust, Go and Haskell solution code.
 
 This project utilizes the Chrome DevTools MCP protocol to read problem statements, automatically organizing them into standard Markdown format, and generating passable multi-language solutions based on the problem requirements.
 
@@ -32,7 +33,7 @@ This project utilizes the Chrome DevTools MCP protocol to read problem statement
 - 🔗 **Flexible Input Parsing** — Supports various input formats: `loj1`, `loj001`, `https://loj.ac/p/1`, etc.
 - 📄 **Automatic Problem Scraping** — Automatically reads and saves problem content via Chrome DevTools MCP.
 - 📝 **Markdown Formatting** — Problem information is automatically organized into structured Markdown files.
-- 💻 **Multi-language Code Generation** — AI analyzes the problem and generates C11, C++11, Python 3, Java 8, Kotlin 1.8, Pascal, Rust and Go solution code.
+- 💻 **Multi-language Code Generation** — AI analyzes the problem and generates C11, C++11, Python 3, Java 8, Kotlin 1.8, Pascal, Rust, Go and Haskell solution code.
 - 📁 **Standardized Directory Structure** — Each problem has its own independent directory for easy management and reference.
 
 ## 🚀 Quick Start
@@ -64,6 +65,7 @@ Each problem will have the following files generated in an independent folder:
 ├── solution.pas   # Solution code (Pascal)
 ├── solution.rs    # Solution code (Rust 2021)
 └── solution.go    # Solution code (Go 1.x)
+└── solution.hs    # Solution code (Haskell 2010)
 ```
 
 ## 📂 Project Structure
@@ -85,6 +87,7 @@ Vibe LibreOJ/
     ├── solution.pas    # Pascal solution
     ├── solution.rs     # Rust solution
     └── solution.go     # Go solution
+    └── solution.hs     # Haskell solution
 ```
 
 ## 📋 Workflow
@@ -93,7 +96,7 @@ Vibe LibreOJ/
 2. **Create Directory** — Create a folder named after the problem number in the workspace root.
 3. **Scrape Problem** — Visit the problem page using Chrome DevTools MCP to capture problem content.
 4. **Save Problem** — Format problem information into Markdown and save as `problem.md`.
-5. **Generate Solution** — AI analyzes the problem and writes C, C++, Python, Java, Kotlin, Pascal, Rust and Go solution code respectively.
+5. **Generate Solution** — AI analyzes the problem and writes C, C++, Python, Java, Kotlin, Pascal, Rust, Go and Haskell solution code respectively.
 
 ## 💡 Example
 
@@ -241,6 +244,18 @@ func main() {
 }
 ```
 
+**solution.hs**
+```haskell
+-- Logic: Directly read two integers and output their sum.
+-- Complexity: Time O(1), Space O(1).
+
+main :: IO ()
+main = do
+  line <- getLine
+  let [a, b] = map read (words line) :: [Integer]
+  print (a + b)
+```
+
 ## 🛠️ Tech Stack
 
 - **AI Agent** — Intelligent workflow control
@@ -253,6 +268,7 @@ func main() {
 - **Free Pascal 3.2** — Solution code standard
 - **Rust 2021** — Solution code standard
 - **Go 1.x** — Solution code standard
+- **Haskell 2010** — Solution code standard
 - **Markdown** — Problem formatting
 
 ## 📄 License

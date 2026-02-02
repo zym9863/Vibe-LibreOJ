@@ -16,6 +16,7 @@
 [![Language](https://img.shields.io/badge/Language-Pascal-teal.svg)](https://www.freepascal.org/)
 [![Language](https://img.shields.io/badge/Language-Rust-brown.svg)](https://www.rust-lang.org/)
 [![Language](https://img.shields.io/badge/Language-Go-cyan.svg)](https://golang.org/)
+[![Language](https://img.shields.io/badge/Language-Haskell-5e5086.svg)](https://www.haskell.org/)
 
 </div>
 
@@ -23,7 +24,7 @@
 
 ## 📖 简介
 
-**Vibe LibreOJ** 是一个基于 AI Agent 的自动化工作流项目，能够自动抓取 [LibreOJ](https://loj.ac) 上的题目信息，并智能生成 C、C++、Python、Java、Kotlin、Pascal、Rust 和 Go 解答代码。
+**Vibe LibreOJ** 是一个基于 AI Agent 的自动化工作流项目，能够自动抓取 [LibreOJ](https://loj.ac) 上的题目信息，并智能生成 C、C++、Python、Java、Kotlin、Pascal、Rust、Go 和 Haskell 解答代码。
 
 该项目利用 Chrome DevTools MCP 协议读取题面，自动整理为规范的 Markdown 格式，并根据题目要求生成可通过的多语言解法。
 
@@ -32,7 +33,7 @@
 - 🔗 **灵活的输入解析** — 支持多种输入格式：`loj1`、`loj001`、`https://loj.ac/p/1` 等
 - 📄 **自动题面抓取** — 通过 Chrome DevTools MCP 自动读取并保存题目内容
 - 📝 **Markdown 格式化** — 题目信息自动整理为结构化的 Markdown 文件
-- 💻 **多语言代码生成** — AI 分析题意并生成 C11、C++11、Python 3、Java 8、Kotlin 1.8、Pascal、Rust 和 Go 的解答代码
+- 💻 **多语言代码生成** — AI 分析题意并生成 C11、C++11、Python 3、Java 8、Kotlin 1.8、Pascal、Rust、Go 和 Haskell 的解答代码
 - 📁 **规范目录结构** — 每道题目独立目录，便于管理和查阅
 
 ## 🚀 快速开始
@@ -64,6 +65,7 @@ http://loj.ac/p/123
 ├── solution.pas   # 解答代码（Pascal）
 ├── solution.rs    # 解答代码（Rust 2021）
 └── solution.go    # 解答代码（Go 1.x）
+└── solution.hs    # 解答代码（Haskell 2010）
 ```
 
 ## 📂 项目结构
@@ -85,6 +87,7 @@ Vibe LibreOJ/
     ├── solution.pas    # Pascal 解答
     ├── solution.rs     # Rust 解答
     └── solution.go     # Go 解答
+    └── solution.hs     # Haskell 解答
 ```
 
 ## 📋 工作流程
@@ -93,7 +96,7 @@ Vibe LibreOJ/
 2. **创建目录** — 在工作区根目录创建以题号命名的文件夹
 3. **抓取题面** — 使用 Chrome DevTools MCP 访问题目页面，获取题目内容
 4. **保存题面** — 将题目信息格式化为 Markdown 并保存为 `problem.md`
-5. **生成解答** — AI 分析题目，分别编写 C、C++、Python、Java、Kotlin、Pascal、Rust 和 Go 解答代码
+5. **生成解答** — AI 分析题目，分别编写 C、C++、Python、Java、Kotlin、Pascal、Rust、Go 和 Haskell 解答代码
 
 ## 💡 示例
 
@@ -241,6 +244,18 @@ func main() {
 }
 ```
 
+**solution.hs**
+```haskell
+-- 思路：直接读取两个整数并输出其和。
+-- 复杂度：时间 O(1)，空间 O(1)。
+
+main :: IO ()
+main = do
+  line <- getLine
+  let [a, b] = map read (words line) :: [Integer]
+  print (a + b)
+```
+
 ## 🛠️ 技术栈
 
 - **AI Agent** — 智能工作流控制
@@ -253,6 +268,7 @@ func main() {
 - **Free Pascal 3.2** — 解答代码标准
 - **Rust 2021** — 解答代码标准
 - **Go 1.x** — 解答代码标准
+- **Haskell 2010** — 解答代码标准
 - **Markdown** — 题目格式化
 
 ## 📄 许可证
