@@ -1,5 +1,5 @@
-// 思路：直接读入 a 和 b，输出 a+b。
-// 复杂度：O(1)
+// 思路：读入两个整数，输出其和。
+// 复杂度：时间 O(1)，空间 O(1)。
 use std::io::{self, Read};
 
 fn main() {
@@ -8,5 +8,5 @@ fn main() {
     let mut it = input.split_whitespace();
     let a: i64 = match it.next() { Some(v) => v.parse().unwrap(), None => return };
     let b: i64 = match it.next() { Some(v) => v.parse().unwrap(), None => return };
-    println!("{}", a + b);
+    print!("{}", a + b);
 }

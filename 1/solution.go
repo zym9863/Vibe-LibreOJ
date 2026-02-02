@@ -1,5 +1,5 @@
-// 思路：直接读入 a 和 b，输出 a+b。
-// 复杂度：O(1)
+// 思路：读入两个整数，输出其和。
+// 复杂度：时间 O(1)，空间 O(1)。
 package main
 
 import (
@@ -14,7 +14,5 @@ func main() {
 	if _, err := fmt.Fscan(in, &a, &b); err != nil {
 		return
 	}
-	out := bufio.NewWriter(os.Stdout)
-	fmt.Fprintln(out, a+b)
-	out.Flush()
+	fmt.Print(a + b)
 }

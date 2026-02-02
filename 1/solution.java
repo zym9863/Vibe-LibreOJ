@@ -1,26 +1,20 @@
-// 思路：直接读入 a 和 b，输出 a+b。
-// 复杂度：O(1)
-import java.io.*;
+// 思路：读入两个整数，输出其和。
+// 复杂度：时间 O(1)，空间 O(1)。
+import java.io.BufferedInputStream;
+import java.io.IOException;
 
 public class Main {
-    private static final class FastScanner {
-        private final InputStream in;
+    private static class FastScanner {
         private final byte[] buffer = new byte[1 << 16];
         private int ptr = 0, len = 0;
-
-        FastScanner(InputStream in) {
-            this.in = in;
-        }
-
         private int read() throws IOException {
             if (ptr >= len) {
-                len = in.read(buffer);
+                len = System.in.read(buffer);
                 ptr = 0;
                 if (len <= 0) return -1;
             }
             return buffer[ptr++];
         }
-
         long nextLong() throws IOException {
             int c;
             do {
@@ -42,13 +36,11 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        FastScanner fs = new FastScanner(System.in);
+        FastScanner fs = new FastScanner();
         long a = fs.nextLong();
         if (a == Long.MIN_VALUE) return;
         long b = fs.nextLong();
         if (b == Long.MIN_VALUE) return;
-        StringBuilder sb = new StringBuilder();
-        sb.append(a + b).append('\n');
-        System.out.print(sb.toString());
+        System.out.print(a + b);
     }
 }

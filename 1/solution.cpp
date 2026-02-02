@@ -1,5 +1,5 @@
-// 思路：直接读入 a 和 b，输出 a+b。
-// 复杂度：O(1)
+// 思路：读入两个整数，输出其和。
+// 复杂度：时间 O(1)，空间 O(1)。
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -9,6 +9,6 @@ int main() {
 
     long long a, b;
     if (!(cin >> a >> b)) return 0;
-    cout << (a + b) << "\n";
+    cout << a + b;
     return 0;
 }
