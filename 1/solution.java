@@ -1,20 +1,23 @@
-// 思路：读入两个整数，输出其和。
+// 思路：读入两个整数 a、b，输出 a + b。
 // 复杂度：时间 O(1)，空间 O(1)。
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
 public class Main {
-    private static class FastScanner {
+    private static final class FastScanner {
+        private final BufferedInputStream in = new BufferedInputStream(System.in);
         private final byte[] buffer = new byte[1 << 16];
         private int ptr = 0, len = 0;
+
         private int read() throws IOException {
             if (ptr >= len) {
-                len = System.in.read(buffer);
+                len = in.read(buffer);
                 ptr = 0;
                 if (len <= 0) return -1;
             }
             return buffer[ptr++];
         }
+
         long nextLong() throws IOException {
             int c;
             do {
