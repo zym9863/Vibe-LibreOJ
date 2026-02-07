@@ -2,7 +2,9 @@
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
+const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
+
 export default defineConfig({
-  site: 'https://zym9863.github.io',
-  base: '/Vibe-LibreOJ',
+  site: isGitHubPages ? 'https://zym9863.github.io' : undefined,
+  base: isGitHubPages ? '/Vibe-LibreOJ' : undefined,
 });
