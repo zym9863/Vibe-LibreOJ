@@ -22,21 +22,33 @@ const EXT_MAP: Record<string, string> = {
 ---
 
 <div class="code-preview">
-  <div class="tab-bar" data-tabs={`tabs-${problemId}`}>
-    {langs.map((lang, i) => (
-      <button
-        class={`tab ${i === 0 ? 'active' : ''}`}
-        data-tab-target={`code-${problemId}-${i}`}
-      >
-        {lang}
-      </button>
-    ))}
+  <div class="code-bar">
+    <div class="code-tabs" data-tabs={`tabs-${problemId}`}>
+      {langs.map((lang, i) => (
+        <button
+          class={`tab ${i === 0 ? 'active' : ''}`}
+          data-tab-target={`code-${problemId}-${i}`}
+        >
+          <span class="tab-dot" style={`--dot-color: ${(() => {
+            const colors: Record<string, string> = {
+              'C': '#555555', 'C++': '#f34b7d', 'C#': '#239120', 'F#': '#378bba',
+              'Python': '#3572a5', 'Java': '#b07219', 'Kotlin': '#a97bff',
+              'Pascal': '#e3f171', 'Rust': '#dea584', 'Go': '#00add8', 'Haskell': '#5e5086',
+            };
+            return colors[lang] || '#888';
+          })()}`}></span>
+          {lang}
+        </button>
+      ))}
+    </div>
+    <span class="code-file">{langs[0] ? `solution.${EXT_MAP[langs[0]] || 'txt'}` : ''}</span>
   </div>
   <div class="code-panels">
     {langs.map((lang, i) => (
       <div
         class={`code-panel ${i === 0 ? 'active' : ''}`}
         id={`code-${problemId}-${i}`}
+        data-filename={`solution.${EXT_MAP[lang] || 'txt'}`}
       >
         <pre><code class={`language-${EXT_MAP[lang] || 'text'}`}>{solutions[lang]}</code></pre>
       </div>
@@ -45,7 +57,7 @@ const EXT_MAP: Record<string, string> = {
 </div>
 
 <script>
-  document.querySelectorAll('.tab-bar').forEach((bar) => {
+  document.querySelectorAll('.code-tabs').forEach((bar) => {
     const tabs = bar.querySelectorAll('.tab');
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
@@ -57,8 +69,12 @@ const EXT_MAP: Record<string, string> = {
         preview.querySelectorAll('.tab').forEach((t) => t.classList.remove('active'));
         preview.querySelectorAll('.code-panel').forEach((p) => p.classList.remove('active'));
         tab.classList.add('active');
-        const panel = preview.querySelector(`#${targetId}`);
-        if (panel) panel.classList.add('active');
+        const panel = preview.querySelector(`#${targetId}`) as HTMLElement;
+        if (panel) {
+          panel.classList.add('active');
+          const fileLabel = preview.querySelector('.code-file');
+          if (fileLabel) fileLabel.textContent = panel.dataset.filename || '';
+        }
       });
     });
   });
@@ -69,33 +85,42 @@ const EXT_MAP: Record<string, string> = {
     background: var(--bg-code);
   }
 
-  .tab-bar {
+  .code-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-surface);
+  }
+
+  .code-tabs {
     display: flex;
     overflow-x: auto;
-    border-bottom: 1px solid var(--border-color);
-    padding: 0 0.5rem;
     scrollbar-width: thin;
-    scrollbar-color: var(--border-color) transparent;
+    scrollbar-color: var(--border) transparent;
   }
 
-  .tab-bar::-webkit-scrollbar {
-    height: 4px;
+  .code-tabs::-webkit-scrollbar {
+    height: 3px;
   }
 
-  .tab-bar::-webkit-scrollbar-thumb {
-    background: var(--border-color);
+  .code-tabs::-webkit-scrollbar-thumb {
+    background: var(--border);
     border-radius: 2px;
   }
 
   .tab {
     flex-shrink: 0;
-    padding: 10px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
     background: none;
     border: none;
     border-bottom: 2px solid transparent;
     color: var(--text-muted);
-    font-size: 0.8rem;
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
@@ -103,28 +128,46 @@ const EXT_MAP: Record<string, string> = {
 
   .tab:hover {
     color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.02);
   }
 
   .tab.active {
-    color: var(--accent-blue);
-    border-bottom-color: var(--accent-blue);
+    color: var(--text-primary);
+    border-bottom-color: var(--accent);
+    background: rgba(0, 255, 136, 0.03);
+  }
+
+  .tab-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--dot-color);
+    flex-shrink: 0;
+  }
+
+  .code-file {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding-right: 14px;
+    flex-shrink: 0;
   }
 
   .code-panel {
     display: none;
-    max-height: 400px;
+    max-height: 420px;
     overflow: auto;
     scrollbar-width: thin;
-    scrollbar-color: var(--border-color) transparent;
+    scrollbar-color: var(--border) transparent;
   }
 
   .code-panel::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
 
   .code-panel::-webkit-scrollbar-thumb {
-    background: var(--border-color);
+    background: var(--border);
     border-radius: 3px;
   }
 
@@ -140,8 +183,8 @@ const EXT_MAP: Record<string, string> = {
 
   code {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    line-height: 1.65;
+    font-size: 0.82rem;
+    line-height: 1.7;
     color: var(--text-primary);
     white-space: pre;
   }

@@ -9,184 +9,226 @@ const { problems } = Astro.props;
 ---
 
 <section class="problems">
-  <h2 class="section-title">题目列表</h2>
-  {problems.length === 0 ? (
-    <p class="empty">暂无题目</p>
-  ) : (
-    <div class="problem-list">
-      {problems.map((p) => (
-        <div class="problem-card" data-problem-id={p.id}>
-          <div class="problem-header">
-            <div class="problem-info">
-              <span class="problem-id">#{p.id}</span>
-              <h3 class="problem-title">{p.title}</h3>
-            </div>
-            <div class="problem-meta">
-              <span class="solution-count">{Object.keys(p.solutions).length} 种语言</span>
-              <a href={p.url} target="_blank" rel="noopener" class="loj-link">LOJ</a>
-              <button class="toggle-btn" aria-label="展开代码预览">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="problem-code" style="display: none;">
-            <CodePreview solutions={p.solutions} problemId={p.id} />
-          </div>
-        </div>
-      ))}
+  <div class="section-wrap">
+    <div class="problems-header reveal">
+      <span class="section-label">// PROBLEMS</span>
+      <h2>题目列表</h2>
     </div>
-  )}
+    {problems.length === 0 ? (
+      <p class="empty">暂无题目数据。运行 vloj 开始解题。</p>
+    ) : (
+      <div class="problem-list">
+        {problems.map((p, i) => (
+          <div class={`problem-row reveal reveal-d${Math.min(i + 1, 6)}`} data-problem-id={p.id}>
+            <div class="problem-header">
+              <div class="problem-left">
+                <span class="problem-id">{String(p.id).padStart(3, '0')}</span>
+                <div class="problem-sep"></div>
+                <h3 class="problem-title">{p.title}</h3>
+              </div>
+              <div class="problem-right">
+                <span class="lang-count">{Object.keys(p.solutions).length} lang</span>
+                <a href={p.url} target="_blank" rel="noopener" class="loj-link">
+                  loj.ac &nearr;
+                </a>
+                <button class="toggle-btn" aria-label="展开代码预览">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="problem-code" style="display: none;">
+              <CodePreview solutions={p.solutions} problemId={p.id} />
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
 </section>
 
 <script>
   document.querySelectorAll('.toggle-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const card = btn.closest('.problem-card');
+      const card = btn.closest('.problem-row');
       if (!card) return;
       const codeEl = card.querySelector('.problem-code') as HTMLElement;
       if (!codeEl) return;
       const isHidden = codeEl.style.display === 'none';
       codeEl.style.display = isHidden ? 'block' : 'none';
-      const svg = btn.querySelector('svg');
-      if (svg) svg.style.transform = isHidden ? 'rotate(180deg)' : '';
+      btn.classList.toggle('open', isHidden);
     });
   });
 </script>
 
 <style>
   .problems {
-    padding: 4rem 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    padding: 6rem 0;
   }
 
-  .section-title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
+  .problems-header {
     margin-bottom: 3rem;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  }
+
+  .section-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: var(--font-mono);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
   }
 
   .empty {
-    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
     color: var(--text-muted);
+    padding: 3rem 0;
+    text-align: center;
   }
 
   .problem-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
   }
 
-  .problem-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: border-color 0.2s;
+  .problem-row {
+    border-top: 1px solid var(--border);
+    transition: background 0.2s;
   }
 
-  .problem-card:hover {
-    border-color: var(--accent-blue);
+  .problem-row:last-child {
+    border-bottom: 1px solid var(--border);
   }
 
   .problem-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 0;
     gap: 1rem;
   }
 
-  .problem-info {
+  .problem-row:hover .problem-header {
+    background: var(--bg-surface);
+    margin: 0 -1rem;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+
+  .problem-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     min-width: 0;
   }
 
   .problem-id {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--accent-cyan);
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .problem-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border-bright);
     flex-shrink: 0;
   }
 
   .problem-title {
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .problem-meta {
+  .problem-right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-shrink: 0;
   }
 
-  .solution-count {
-    font-size: 0.8rem;
+  .lang-count {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     color: var(--text-muted);
-    padding: 4px 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
+    background: var(--bg-elevated);
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
   }
 
   .loj-link {
-    font-size: 0.8rem;
-    padding: 4px 10px;
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    border-radius: 6px;
-    color: var(--accent-blue);
-    font-weight: 500;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--warm);
+    padding: 3px 8px;
+    border: 1px solid var(--warm-dim);
+    border-radius: 3px;
+    transition: all 0.2s;
   }
 
   .loj-link:hover {
-    background: rgba(59, 130, 246, 0.2);
+    background: var(--warm-dim);
+    opacity: 1;
   }
 
   .toggle-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     background: none;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
     cursor: pointer;
     transition: all 0.2s;
   }
 
   .toggle-btn:hover {
-    border-color: var(--accent-blue);
-    color: var(--accent-blue);
+    border-color: var(--accent);
+    color: var(--accent);
   }
 
   .toggle-btn svg {
-    transition: transform 0.2s;
+    transition: transform 0.25s;
+  }
+
+  .toggle-btn.open svg {
+    transform: rotate(180deg);
   }
 
   .problem-code {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border);
   }
 
   @media (max-width: 640px) {
     .problem-header {
       flex-direction: column;
       align-items: flex-start;
+      gap: 0.75rem;
     }
 
-    .problem-meta {
+    .problem-right {
       width: 100%;
       justify-content: flex-end;
     }

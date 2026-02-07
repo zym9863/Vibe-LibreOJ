@@ -8,69 +8,93 @@ const { problemCount, languageCount, solutionCount } = Astro.props;
 ---
 
 <section class="stats">
-  <div class="stats-grid">
-    <div class="stat-card">
-      <span class="stat-number">{problemCount}</span>
-      <span class="stat-label">已解题目</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">{languageCount}</span>
-      <span class="stat-label">支持语言</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">{solutionCount}</span>
-      <span class="stat-label">解答代码</span>
+  <div class="section-wrap">
+    <div class="stats-row reveal">
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-val">{problemCount}</span>
+        <span class="stat-key">problems solved</span>
+      </div>
+      <div class="stat-sep">/</div>
+      <div class="stat-item">
+        <span class="stat-val">{languageCount}</span>
+        <span class="stat-key">languages</span>
+      </div>
+      <div class="stat-sep">/</div>
+      <div class="stat-item">
+        <span class="stat-val">{solutionCount}</span>
+        <span class="stat-key">solutions generated</span>
+      </div>
+      <div class="stat-divider"></div>
     </div>
   </div>
 </section>
 
 <style>
   .stats {
-    padding: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    padding: 3rem 0;
   }
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  .stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
   }
 
-  .stat-card {
-    text-align: center;
-    padding: 2rem 1rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    transition: border-color 0.2s;
+  .stat-divider {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
   }
 
-  .stat-card:hover {
-    border-color: var(--accent-blue);
+  .stat-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-shrink: 0;
   }
 
-  .stat-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.2;
+  .stat-val {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    text-shadow: 0 0 20px var(--accent-dim);
   }
 
-  .stat-label {
-    display: block;
-    margin-top: 0.5rem;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+  .stat-key {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  @media (max-width: 640px) {
-    .stats-grid {
-      grid-template-columns: 1fr;
+  .stat-sep {
+    font-family: var(--font-mono);
+    color: var(--border-bright);
+    font-size: 1.5rem;
+    font-weight: 300;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 700px) {
+    .stats-row {
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .stat-divider {
+      width: 60px;
+      flex: none;
+    }
+
+    .stat-sep {
+      display: none;
     }
   }
 </style>

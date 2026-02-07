@@ -1,98 +1,175 @@
 ---
 const features = [
   {
-    icon: '&#128279;',
+    num: '01',
     title: '灵活的输入解析',
-    desc: '支持多种输入格式：loj1、loj001、https://loj.ac/p/1 等',
+    desc: '支持多种输入格式：loj1、loj001、完整 URL — 怎么方便怎么来。',
+    tag: 'PARSER',
   },
   {
-    icon: '&#128196;',
+    num: '02',
     title: '自动题面抓取',
-    desc: '通过 Chrome DevTools MCP 自动读取并保存题目内容',
+    desc: '通过 Chrome DevTools Protocol 自动读取页面，精准保存题目内容为 Markdown。',
+    tag: 'SCRAPER',
   },
   {
-    icon: '&#128187;',
+    num: '03',
     title: '多语言代码生成',
-    desc: 'AI 分析题意并生成多种编程语言的解答代码',
+    desc: 'AI Agent 分析题意，一次生成 11 种编程语言的完整解答代码。',
+    tag: 'GENERATOR',
   },
   {
-    icon: '&#128193;',
+    num: '04',
     title: '规范目录结构',
-    desc: '每道题目独立目录，便于管理和查阅',
+    desc: '每道题目独立文件夹，题面与代码分离管理，清晰且可追溯。',
+    tag: 'STRUCTURE',
   },
 ];
 ---
 
 <section class="features">
-  <h2 class="section-title">功能特性</h2>
-  <div class="features-grid">
-    {features.map((f) => (
-      <div class="feature-card">
-        <div class="feature-icon" set:html={f.icon} />
-        <h3>{f.title}</h3>
-        <p>{f.desc}</p>
-      </div>
-    ))}
+  <div class="section-wrap">
+    <div class="features-header reveal">
+      <span class="section-label">// FEATURES</span>
+      <h2>工作流程</h2>
+    </div>
+    <div class="features-list">
+      {features.map((f, i) => (
+        <div class={`feature-row reveal reveal-d${i + 1}`}>
+          <div class="feature-num">{f.num}</div>
+          <div class="feature-content">
+            <div class="feature-top">
+              <h3>{f.title}</h3>
+              <span class="feature-tag">{f.tag}</span>
+            </div>
+            <p>{f.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
   .features {
-    padding: 4rem 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    padding: 6rem 0;
   }
 
-  .section-title {
-    text-align: center;
-    font-size: 2rem;
+  .features-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: var(--font-mono);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     font-weight: 700;
-    margin-bottom: 3rem;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
   }
 
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+  .features-list {
+    display: flex;
+    flex-direction: column;
   }
 
-  .feature-card {
+  .feature-row {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .feature-row:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .feature-row:hover {
+    background: var(--bg-surface);
+    margin: 0 -2rem;
     padding: 2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    transition: all 0.2s;
+    border-radius: 4px;
   }
 
-  .feature-card:hover {
-    border-color: var(--accent-purple);
-    transform: translateY(-2px);
+  .feature-num {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--border-bright);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 64px;
+    transition: color 0.3s;
   }
 
-  .feature-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+  .feature-row:hover .feature-num {
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent-dim);
   }
 
-  .feature-card h3 {
-    font-size: 1.15rem;
-    font-weight: 600;
+  .feature-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .feature-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 0.5rem;
   }
 
-  .feature-card p {
+  .feature-content h3 {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .feature-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--warm);
+    background: var(--warm-dim);
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  .feature-content p {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    max-width: 520px;
   }
 
   @media (max-width: 640px) {
-    .features-grid {
-      grid-template-columns: 1fr;
+    .feature-row {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .feature-num {
+      font-size: 1.8rem;
+    }
+
+    .feature-row:hover {
+      margin: 0 -1rem;
+      padding: 1.5rem 1rem;
     }
   }
 </style>
