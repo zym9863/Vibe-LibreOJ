@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
+import Features from '../components/Features.astro';
+import Languages from '../components/Languages.astro';
+import ProblemList from '../components/ProblemList.astro';
+import Footer from '../components/Footer.astro';
+import { getProblems, SUPPORTED_LANGUAGES } from '../data/problems';
+
+const problems = getProblems();
+const languageCount = SUPPORTED_LANGUAGES.length;
+const solutionCount = problems.reduce((sum, p) => sum + Object.keys(p.solutions).length, 0);
+---
+
+<Layout>
+  <Hero />
+  <Stats
+    problemCount={problems.length}
+    languageCount={languageCount}
+    solutionCount={solutionCount}
+  />
+  <Features />
+  <Languages />
+  <ProblemList problems={problems} />
+  <Footer />
+</Layout>

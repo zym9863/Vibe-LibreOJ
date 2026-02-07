@@ -57,7 +57,7 @@ http://loj.ac/p/123
 Each problem will have the following files generated in an independent folder:
 
 ```
-<Problem ID>/
+loj/<Problem ID>/
 ├── problem.md     # Problem statement description (Markdown format)
 ├── solution.c     # Solution code (C11)
 ├── solution.cpp   # Solution code (C++11)
@@ -81,25 +81,29 @@ Vibe LibreOJ/
 ├── LICENSE             # MIT License
 ├── vloj/
 │   └── SKILL.md        # AI workflow skill definition
-└── <Problem ID>/       # Problem solution directory
-    ├── problem.md      # Problem statement
-    ├── solution.c      # C solution
-    ├── solution.cpp    # C++ solution
-    ├── solution.cs     # C# solution
-    ├── solution.fs     # F# solution
-    ├── solution.py     # Python solution
-    ├── solution.java   # Java solution
-    ├── solution.kt     # Kotlin solution
-    ├── solution.pas    # Pascal solution
-    ├── solution.rs     # Rust solution
-    ├── solution.go     # Go solution
-    └── solution.hs     # Haskell solution
+├── web/                # Landing Page (Astro)
+│   ├── src/
+│   └── package.json
+└── loj/                # Problem solution directory
+    └── <Problem ID>/
+        ├── problem.md      # Problem statement
+        ├── solution.c      # C solution
+        ├── solution.cpp    # C++ solution
+        ├── solution.cs     # C# solution
+        ├── solution.fs     # F# solution
+        ├── solution.py     # Python solution
+        ├── solution.java   # Java solution
+        ├── solution.kt     # Kotlin solution
+        ├── solution.pas    # Pascal solution
+        ├── solution.rs     # Rust solution
+        ├── solution.go     # Go solution
+        └── solution.hs     # Haskell solution
 ```
 
 ## 📋 Workflow
 
 1. **Parse Input** — Extract problem number from user input, removing leading zeros.
-2. **Create Directory** — Create a folder named after the problem number in the workspace root.
+2. **Create Directory** — Create a folder named after the problem number under the `loj/` directory.
 3. **Scrape Problem** — Visit the problem page using Chrome DevTools MCP to capture problem content.
 4. **Save Problem** — Format problem information into Markdown and save as `problem.md`.
 5. **Generate Solution** — AI analyzes the problem and writes C, C++, C#, Python, Java, Kotlin, Pascal, Rust, Go, Haskell and F# solution code respectively.

@@ -1,0 +1,122 @@
+---
+const REPO_URL = 'https://github.com/zym9863/Vibe-LibreOJ';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="footer-logo">Vibe LibreOJ</span>
+      <p class="footer-desc">AI-powered LibreOJ problem scraper & multi-language solution generator</p>
+    </div>
+    <div class="footer-links">
+      <div class="link-group">
+        <h4>Links</h4>
+        <a href={REPO_URL} target="_blank" rel="noopener">GitHub</a>
+        <a href="https://loj.ac" target="_blank" rel="noopener">LibreOJ</a>
+      </div>
+      <div class="link-group">
+        <h4>Tech</h4>
+        <a href="https://chromedevtools.github.io/devtools-protocol/" target="_blank" rel="noopener">Chrome DevTools Protocol</a>
+        <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; {year} Vibe LibreOJ &middot; <a href={`${REPO_URL}/blob/main/LICENSE`} target="_blank" rel="noopener">MIT License</a></p>
+    <p class="made-with">Made with &#10084;&#65039; by AI Agent</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+    padding: 3rem 2rem 2rem;
+    background: var(--bg-secondary);
+  }
+
+  .footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-brand {
+    max-width: 300px;
+  }
+
+  .footer-logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-desc {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .link-group h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+  }
+
+  .link-group a {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .link-group a:hover {
+    color: var(--accent-blue);
+  }
+
+  .footer-bottom {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .made-with {
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .footer-content {
+      flex-direction: column;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+import { SUPPORTED_LANGUAGES } from '../data/problems';
+---
+
+<section class="languages">
+  <h2 class="section-title">支持语言</h2>
+  <div class="lang-grid">
+    {SUPPORTED_LANGUAGES.map((lang) => (
+      <div class="lang-tag">
+        <span class="lang-dot" style={`background: ${lang.color}`}></span>
+        <span>{lang.name}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .languages {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lang-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .lang-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .lang-tag:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+  }
+
+  .lang-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+</style>

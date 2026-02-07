@@ -20,7 +20,7 @@ description: LibreOJ题目抓取与解题工作流。用户输入形如loj1/loj0
 ## 工作流
 
 1. **创建空文件夹**
-   - 在当前工作区根目录创建以题号命名的文件夹：`<id>/`。
+   - 在当前工作区根目录的 `loj/` 目录下创建以题号命名的文件夹：`loj/<id>/`。
    - 若文件夹不存在，直接创建。
    - 若文件夹已存在且非空，先请求用户确认是否清空；确认后删除内容并保持空文件夹。
 
@@ -32,68 +32,68 @@ description: LibreOJ题目抓取与解题工作流。用户输入形如loj1/loj0
    - 需要确保包含题目标题、描述、输入输出、样例与提示（如存在）。
 
 3. **写入Markdown**
-   - 在题号文件夹中创建 `problem.md`。
+   - 在 `loj/` 下的题号文件夹中创建 `problem.md`。
    - 内容结构：
      - 标题：`# <题号> <题目标题>`
      - URL：`原始URL`
      - 题面正文分节整理（保留原有小节标题）。
 
 4. **编写C++解答**
-   - 在题号文件夹中创建 `solution.cpp`。
+   - 在 `loj/<id>/` 下创建 `solution.cpp`。
    - 使用 C++11 标准，包含必要头文件与 `main()`。
    - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 5. **编写C解答**
-   - 在题号文件夹中创建 `solution.c`。
+   - 在 `loj/<id>/` 下创建 `solution.c`。
    - 使用 C11 标准，包含必要头文件与 `main()`。
    - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 6. **编写Python解答**
-   - 在题号文件夹中创建 `solution.py`。
+   - 在 `loj/<id>/` 下创建 `solution.py`。
    - 使用 Python 3.10，包含必要的输入输出处理。
    - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 7. **编写Java解答**
-   - 在题号文件夹中创建 `solution.java`。
+   - 在 `loj/<id>/` 下创建 `solution.java`。
    - 使用 Java 8 标准，类名为 `Main`，包含 `main()` 方法。
    - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 8. **编写Kotlin解答**
-   - 在题号文件夹中创建 `solution.kt`。
+   - 在 `loj/<id>/` 下创建 `solution.kt`。
    - 使用 Kotlin 1.8 标准。
    - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 9. **编写Pascal解答**
-   - 在题号文件夹中创建 `solution.pas`。
+   - 在 `loj/<id>/` 下创建 `solution.pas`。
    - 使用 Free Pascal 3.2 标准。
    - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 10. **编写Rust解答**
-    - 在题号文件夹中创建 `solution.rs`。
+    - 在 `loj/<id>/` 下创建 `solution.rs`。
     - 使用 Rust 2021 标准。
     - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 11. **编写Go解答**
-    - 在题号文件夹中创建 `solution.go`。
+    - 在 `loj/<id>/` 下创建 `solution.go`。
     - 使用 Go 1.x 标准。
     - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 12. **编写Haskell解答**
-    - 在题号文件夹中创建 `solution.hs`。
+    - 在 `loj/<id>/` 下创建 `solution.hs`。
     - 使用 Haskell 2010 标准。
     - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 13. **编写C#解答**
-    - 在题号文件夹中创建 `solution.cs`。
+    - 在 `loj/<id>/` 下创建 `solution.cs`。
     - 使用 C# 9 (.NET 5) 标准。
     - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 14. **编写F#解答**
-    - 在题号文件夹中创建 `solution.fs`。
+    - 在 `loj/<id>/` 下创建 `solution.fs`。
     - 使用 F# 5.0 (.NET 5) 标准。
     - 依据题意实现可通过的解法，并在顶部用简短注释说明思路与复杂度。
 
 ## 输出约束
 
-- 仅创建 `problem.md`、`solution.c`、`solution.cpp`、`solution.cs`、`solution.fs`、`solution.py`、`solution.java`、`solution.kt`、`solution.pas`、`solution.rs`、`solution.go` 与 `solution.hs`，不生成额外文件。
-- 保持文件夹为空创建流程的前置步骤，先建目录再抓取题面。
+- 仅在 `loj/<id>/` 下创建 `problem.md`、`solution.c`、`solution.cpp`、`solution.cs`、`solution.fs`、`solution.py`、`solution.java`、`solution.kt`、`solution.pas`、`solution.rs`、`solution.go` 与 `solution.hs`，不生成额外文件。
+- 保持文件夹为空创建流程的前置步骤，先在 `loj/` 下建目录再抓取题面。

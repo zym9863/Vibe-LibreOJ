@@ -57,7 +57,7 @@ http://loj.ac/p/123
 每道题目将在独立文件夹中生成以下文件：
 
 ```
-<题号>/
+loj/<题号>/
 ├── problem.md     # 题面描述（Markdown 格式）
 ├── solution.c     # 解答代码（C11）
 ├── solution.cpp   # 解答代码（C++11）
@@ -81,25 +81,29 @@ Vibe Libre OJ/
 ├── LICENSE             # MIT 许可证
 ├── vloj/
 │   └── SKILL.md        # AI 工作流技能定义
-└── <题号>/             # 题目解答目录
-    ├── problem.md      # 题面
-    ├── solution.c      # C 解答
-    ├── solution.cpp    # C++ 解答
-    ├── solution.cs     # C# 解答
-    ├── solution.fs     # F# 解答
-    ├── solution.py     # Python 解答
-    ├── solution.java   # Java 解答
-    ├── solution.kt     # Kotlin 解答
-    ├── solution.pas    # Pascal 解答
-    ├── solution.rs     # Rust 解答
-    ├── solution.go     # Go 解答
-    └── solution.hs     # Haskell 解答
+├── web/                # Landing Page（Astro）
+│   ├── src/
+│   └── package.json
+└── loj/                # 题目解答目录
+    └── <题号>/
+        ├── problem.md      # 题面
+        ├── solution.c      # C 解答
+        ├── solution.cpp    # C++ 解答
+        ├── solution.cs     # C# 解答
+        ├── solution.fs     # F# 解答
+        ├── solution.py     # Python 解答
+        ├── solution.java   # Java 解答
+        ├── solution.kt     # Kotlin 解答
+        ├── solution.pas    # Pascal 解答
+        ├── solution.rs     # Rust 解答
+        ├── solution.go     # Go 解答
+        └── solution.hs     # Haskell 解答
 ```
 
 ## 📋 工作流程
 
 1. **解析输入** — 从用户输入中提取题号，去除前导零
-2. **创建目录** — 在工作区根目录创建以题号命名的文件夹
+2. **创建目录** — 在工作区 `loj/` 目录下创建以题号命名的文件夹
 3. **抓取题面** — 使用 Chrome DevTools MCP 访问题目页面，获取题目内容
 4. **保存题面** — 将题目信息格式化为 Markdown 并保存为 `problem.md`
 5. **生成解答** — AI 分析题目，分别编写 C、C++、C#、Python、Java、Kotlin、Pascal、Rust、Go、Haskell 和 F# 解答代码

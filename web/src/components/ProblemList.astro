@@ -1,0 +1,194 @@
+---
+import type { Problem } from '../data/problems';
+import CodePreview from './CodePreview.astro';
+
+interface Props {
+  problems: Problem[];
+}
+const { problems } = Astro.props;
+---
+
+<section class="problems">
+  <h2 class="section-title">题目列表</h2>
+  {problems.length === 0 ? (
+    <p class="empty">暂无题目</p>
+  ) : (
+    <div class="problem-list">
+      {problems.map((p) => (
+        <div class="problem-card" data-problem-id={p.id}>
+          <div class="problem-header">
+            <div class="problem-info">
+              <span class="problem-id">#{p.id}</span>
+              <h3 class="problem-title">{p.title}</h3>
+            </div>
+            <div class="problem-meta">
+              <span class="solution-count">{Object.keys(p.solutions).length} 种语言</span>
+              <a href={p.url} target="_blank" rel="noopener" class="loj-link">LOJ</a>
+              <button class="toggle-btn" aria-label="展开代码预览">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="problem-code" style="display: none;">
+            <CodePreview solutions={p.solutions} problemId={p.id} />
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</section>
+
+<script>
+  document.querySelectorAll('.toggle-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.problem-card');
+      if (!card) return;
+      const codeEl = card.querySelector('.problem-code') as HTMLElement;
+      if (!codeEl) return;
+      const isHidden = codeEl.style.display === 'none';
+      codeEl.style.display = isHidden ? 'block' : 'none';
+      const svg = btn.querySelector('svg');
+      if (svg) svg.style.transform = isHidden ? 'rotate(180deg)' : '';
+    });
+  });
+</script>
+
+<style>
+  .problems {
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .empty {
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  .problem-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .problem-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .problem-card:hover {
+    border-color: var(--accent-blue);
+  }
+
+  .problem-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .problem-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .problem-id {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent-cyan);
+    flex-shrink: 0;
+  }
+
+  .problem-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .problem-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .solution-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+  }
+
+  .loj-link {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 6px;
+    color: var(--accent-blue);
+    font-weight: 500;
+  }
+
+  .loj-link:hover {
+    background: rgba(59, 130, 246, 0.2);
+  }
+
+  .toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .toggle-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+  }
+
+  .toggle-btn svg {
+    transition: transform 0.2s;
+  }
+
+  .problem-code {
+    border-top: 1px solid var(--border-color);
+  }
+
+  @media (max-width: 640px) {
+    .problem-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .problem-meta {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+</style>
