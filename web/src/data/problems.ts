@@ -24,6 +24,36 @@ const LANG_MAP: Record<string, string> = {
 
 const LOJ_DIR = path.resolve(import.meta.dirname, '../../..', 'loj');
 
+function extractProblemTitle(content: string, id: number): string {
+  const normalized = content.replace(/\r\n?/g, '\n').replace(/^\uFEFF/, '');
+  const headingMatch = normalized.match(/^\s{0,3}#{1,6}\s+(.+)$/m);
+
+  let title = headingMatch?.[1] ?? '';
+  if (!title) {
+    const fallbackLine = normalized
+      .split('\n')
+      .map((line) => line.trim())
+      .find((line) => line && !/^url[:\uFF1A]/i.test(line) && !/^https?:\/\//i.test(line));
+    title = fallbackLine ?? '';
+  }
+
+  title = title
+    .replace(/^#+\s*/, '')
+    .replace(/\[(.*?)\]\([^)]*\)/g, '$1')
+    .replace(/[`*_~]/g, '')
+    .replace(new RegExp(`^#?\\s*0*${id}\\s+`), '')
+    .replace(/^\s*[-:\uFF1A]+\s*/, '')
+    .trim();
+
+  return title;
+}
+
+function extractProblemUrl(content: string, fallbackUrl: string): string {
+  const normalized = content.replace(/^\uFEFF/, '');
+  const urlMatch = normalized.match(/https?:\/\/loj\.ac\/p\/\d+/);
+  return urlMatch?.[0] ?? fallbackUrl;
+}
+
 export function getProblems(): Problem[] {
   if (!fs.existsSync(LOJ_DIR)) return [];
 
@@ -37,15 +67,15 @@ export function getProblems(): Problem[] {
       const dirPath = path.join(LOJ_DIR, dir);
       const problemPath = path.join(dirPath, 'problem.md');
 
-      let title = `Problem ${dir}`;
+      const fallbackTitle = `Problem ${dir}`;
+      let title = fallbackTitle;
       let url = `https://loj.ac/p/${dir}`;
 
       if (fs.existsSync(problemPath)) {
         const content = fs.readFileSync(problemPath, 'utf-8');
-        const titleMatch = content.match(/^#\s+(.+)$/m);
-        if (titleMatch) title = titleMatch[1];
-        const urlMatch = content.match(/https:\/\/loj\.ac\/p\/\d+/);
-        if (urlMatch) url = urlMatch[0];
+        const extractedTitle = extractProblemTitle(content, Number(dir));
+        title = extractedTitle || fallbackTitle;
+        url = extractProblemUrl(content, url);
       }
 
       const solutions: Record<string, string> = {};
