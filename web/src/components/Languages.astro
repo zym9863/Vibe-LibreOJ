@@ -1,19 +1,88 @@
 ---
 import { SUPPORTED_LANGUAGES } from '../data/problems';
+
+const groups = [
+  {
+    id: 'systems',
+    title: 'Systems',
+    desc: '底层与高性能',
+    accent: '#00d4ff',
+    names: ['C', 'C++', 'Rust', 'Go'],
+  },
+  {
+    id: 'managed',
+    title: 'JVM / .NET',
+    desc: '工程化与生态',
+    accent: '#8e7dff',
+    names: ['Java', 'Kotlin', 'C#', 'F#'],
+  },
+  {
+    id: 'classic',
+    title: 'Scripting & Classic',
+    desc: '竞赛与教学常见',
+    accent: '#f4b85a',
+    names: ['Python', 'Pascal', 'Haskell'],
+  },
+] as const;
+
+const languageByName = new Map(SUPPORTED_LANGUAGES.map((lang) => [lang.name, lang]));
+type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
+const groupedLanguages = groups
+  .map((group) => ({
+    ...group,
+    items: group.names
+      .map((name) => languageByName.get(name))
+      .filter((lang): lang is SupportedLanguage => Boolean(lang)),
+  }))
+  .filter((group) => group.items.length > 0);
+
+const languageTags: Record<string, string> = {
+  C: 'Native',
+  'C++': 'STL',
+  Rust: 'Safe',
+  Go: 'Concurrent',
+  Java: 'JVM',
+  Kotlin: 'JVM',
+  'C#': '.NET',
+  'F#': '.NET',
+  Python: 'Script',
+  Pascal: 'Classic',
+  Haskell: 'Pure FP',
+};
 ---
 
 <section class="languages">
   <div class="section-wrap">
     <div class="lang-header reveal">
       <span class="section-label">// LANGUAGES</span>
-      <h2>支持语言</h2>
+      <div class="lang-title">
+        <h2>支持语言</h2>
+      </div>
     </div>
-    <div class="lang-grid reveal reveal-d2">
-      {SUPPORTED_LANGUAGES.map((lang, i) => (
-        <div class="lang-cell" style={`--delay: ${i * 0.05}s; --lang-color: ${lang.color}`}>
-          <div class="lang-bar" style={`background: ${lang.color}`}></div>
-          <span class="lang-name">{lang.name}</span>
-        </div>
+
+    <div class="lang-groups">
+      {groupedLanguages.map((group, groupIndex) => (
+        <article
+          class={`lang-group reveal reveal-d${Math.min(groupIndex + 2, 6)}`}
+          style={`--group-color: ${group.accent}`}
+        >
+          <div class="group-head">
+            <div>
+              <h3>{group.title}</h3>
+              <p>{group.desc}</p>
+            </div>
+            <span class="group-count">{group.items.length}</span>
+          </div>
+          <ul class="group-list">
+            {group.items.map((lang) => (
+              <li class="lang-item" style={`--lang-color: ${lang.color}`}>
+                <span class="lang-strip"></span>
+                <span class="lang-name">{lang.name}</span>
+                <span class="lang-tag">{languageTags[lang.name] ?? 'General'}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
       ))}
     </div>
   </div>
@@ -27,78 +96,197 @@ import { SUPPORTED_LANGUAGES } from '../data/problems';
   }
 
   .lang-header {
-    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2.75rem;
   }
 
   .section-label {
     display: block;
+    grid-column: 1 / -1;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--accent);
     letter-spacing: 0.1em;
-    margin-bottom: 0.75rem;
   }
 
-  h2 {
+  .lang-title h2 {
     font-family: var(--font-mono);
     font-size: clamp(1.8rem, 3.5vw, 2.5rem);
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.02em;
+    margin-bottom: 0.6rem;
   }
 
-  .lang-grid {
+  .lang-groups {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
   }
 
-  .lang-cell {
-    background: var(--bg-surface);
-    padding: 1.25rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.25s;
+  .lang-group {
+    background:
+      linear-gradient(160deg, color-mix(in srgb, var(--group-color) 11%, var(--bg-surface)), var(--bg-surface)),
+      var(--bg-surface);
+    border: 1px solid color-mix(in srgb, var(--group-color) 35%, var(--border));
+    border-radius: 14px;
+    padding: 1.05rem;
     position: relative;
+    overflow: hidden;
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
   }
 
-  .lang-cell:hover {
-    background: var(--bg-elevated);
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
-  }
-
-  .lang-cell:hover .lang-bar {
-    height: 100%;
-    opacity: 0.15;
-  }
-
-  .lang-bar {
+  .lang-group::before {
+    content: '';
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 3px;
-    height: 40%;
-    border-radius: 0 2px 2px 0;
-    transition: all 0.3s;
-    opacity: 0.8;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.07) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.5s ease;
+  }
+
+  .lang-group:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--group-color) 65%, var(--border-bright));
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .lang-group:hover::before {
+    transform: translateX(120%);
+  }
+
+  .group-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--group-color) 25%, var(--border));
+  }
+
+  .group-head h3 {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .group-head p {
+    margin-top: 0.3rem;
+    font-family: var(--font-serif);
+    font-size: 0.83rem;
+    color: var(--text-muted);
+  }
+
+  .group-count {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: color-mix(in srgb, var(--group-color) 88%, #ffffff);
+    border: 1px solid color-mix(in srgb, var(--group-color) 55%, var(--border-bright));
+    background: color-mix(in srgb, var(--group-color) 22%, var(--bg-elevated));
+  }
+
+  .group-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .lang-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 6px 1fr auto;
+    gap: 0.68rem;
+    align-items: center;
+    background: color-mix(in srgb, var(--bg-elevated) 75%, transparent);
+    border: 1px solid color-mix(in srgb, var(--lang-color) 20%, var(--border));
+    border-radius: 8px;
+    padding: 0.62rem 0.68rem;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  }
+
+  .lang-item::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lang-color), transparent);
+    opacity: 0.6;
+  }
+
+  .lang-item:hover {
+    transform: translateX(2px);
+    border-color: color-mix(in srgb, var(--lang-color) 60%, var(--border-bright));
+    background: color-mix(in srgb, var(--lang-color) 10%, var(--bg-elevated));
+  }
+
+  .lang-strip {
+    width: 6px;
+    height: 1.2rem;
+    border-radius: 999px;
+    background: var(--lang-color);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--lang-color) 50%, transparent);
   }
 
   .lang-name {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     color: var(--text-primary);
-    padding-left: 8px;
   }
 
-  @media (max-width: 500px) {
-    .lang-grid {
-      grid-template-columns: repeat(2, 1fr);
+  .lang-tag {
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    color: color-mix(in srgb, var(--lang-color) 72%, #f2f2ff);
+    border: 1px solid color-mix(in srgb, var(--lang-color) 40%, var(--border-bright));
+    background: color-mix(in srgb, var(--lang-color) 12%, var(--bg-elevated));
+    border-radius: 999px;
+    padding: 0.12rem 0.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 840px) {
+    .lang-header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .languages {
+      padding: 4.6rem 0;
+    }
+
+    .lang-groups {
+      grid-template-columns: 1fr;
+    }
+
+    .lang-item {
+      grid-template-columns: 6px 1fr;
+      gap: 0.56rem;
+    }
+
+    .lang-tag {
+      grid-column: 2 / -1;
+      justify-self: start;
     }
   }
 </style>
